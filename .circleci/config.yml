@@ -1,0 +1,23 @@
+version: 2.1
+
+orbs:
+python: circleci/python@0.2.1
+
+jobs:
+convert-1:
+executor:python/default
+steps:
+- checkout 
+- python/install-deps    
+- run: 
+name: jupyter get HTML
+command:
+jupyter-nbconvert --execute -to html 1.ipynb
+
+- store_artifacts:
+path: ./1.html
+
+workflows:
+main:
+jobs:
+- convert-1
